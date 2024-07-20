@@ -1,17 +1,28 @@
-pipeline{
+pipeline {
     agent any
-    options{
+    
+    options {
         retry(3)
     }
-    stages{
-        stage('Input'){
-            steps{
+    
+    parameters {
+        string(name: 'name', defaultValue: 'Ass', description: 'This is the biggest Ass')
+        choice(name: 'Environment',
+               choices: ['Dev', 'Test', 'UAT', 'PAT', 'PROD'],
+               description: "Which environment do you want to deploy to?"
+        )
+    }
+    
+    stages {
+        stage('Input') {
+            steps {
                 timeout(time: 30, unit: 'SECONDS') {
-                    input message: "Are you sure that you are building the app", ok:'yes', submitter: 'jenkins'
+                    input message: "Are you sure that you want to build the app?", ok: 'yes', submitter: 'jenkins'
                 }
-                echo "input and timeout test"
+                echo "Input and timeout test"
+                echo "Hello ${params.name}"
+                echo "Deploying to ${params.Environment}"
             }
         }
     }
 }
-                

@@ -1,8 +1,8 @@
 pipeline{
     agent any
     stages{
-        stage{
-            prallel{
+        stage ('test' ) {
+            parallel {
                 stage('1st') {
                     echo "this is first stage"
                     sleep 30

@@ -18,7 +18,7 @@ pipeline {
                 Parameter{
                     string{
                         name: 'Change_Ticket',
-                        defaultValue: 'CHG.....',
+                        defaultValue: 'CHG123456',
                         description: 'Please Change ticket notes'
                     }
                     string{

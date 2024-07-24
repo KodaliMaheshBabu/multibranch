@@ -1,39 +1,59 @@
 pipeline {
-    agent any
+    agent any 
     stages {
-        stage('Deploy to Dev') {
+        stage ('Build') {
             steps {
-                echo "Deploying in Dev"
-                // Add your actual deployment steps for Dev here
+                echo "Building node application"
             }
         }
-        stage('Deploy to Prod') {
+        stage ('Deploy to prod') {
             options {
-                timeout(time: 60, unit: 'SECONDS')
+                timeout(time: 30, unit: 'SECONDS')
+            }
+            input {
+                message "Should i continue ??"
+                ok "Approved"
+                submitter "maha"
+                submitterParameter "whoapproved"
+                parameters {
+                    string (
+                        name: 'USR_NAME',
+                        defaultValue: 'Siva',
+                        description: 'Do enter your name'
+                    )
+                    string (
+                        name: 'CHG_Ticket',
+                        defaultValue: 'CHG1234',
+                        description: 'Do enter your name'
+                    )
+                    booleanParam(
+                        name: 'SRE_APPROVED',
+                        defaultValue: true,
+                        description: 'Is SRE approval taken for this release'
+                    )
+                    choice(
+                        choices: 'Regular\nHotfix',
+                        description: "What sort of release is this, regulare release or hotfix ?",
+                        name: 'Release'
+                    )
+                    text(
+                        name: 'Notes',
+                        defaultValue: "Enter Release notes",
+                        description: "Do enter the description"
+                    )
+                    credentials(
+                        name: 'mycrediantials',
+                        description: "myCredentials", 
+                        required: true
+                    )
+                }
             }
             steps {
-                script {
-                    def userInput = input(
-                        message: "Do you want to deploy in PROD?",
-                        ok: "Approved",
-                        submitter: "jenkins",
-                        parameters: [
-                            string(name: 'Change_Ticket', defaultValue: 'CHG123456', description: 'Please change ticket notes'),
-                            string(name: 'USR_NAME', defaultValue: 'jenkins', description: 'Please provide your details'),
-                            booleanParam(name: 'Approved_by_SRE', defaultValue: true, description: 'Is the build approved by SRE?'),
-                            choice(name: 'CHOICES', choices: ['Release', 'HotFix', 'Rollback'], description: 'What is the kind of this build?'),
-                            text(name: 'NOTES', defaultValue: 'Provide Description', description: 'Enter description'),
-                            credentials(name: 'jenkinsCredes', description: "My credentials", required: true)
-                        ]
-                    )
-                    
-                    echo "Welcome ${userInput.USR_NAME}"
-                    echo "Status of Approval is ${userInput.Approved_by_SRE}"
-                    echo "This deployment is a ${userInput.CHOICES}"
-                    echo "This deployment is done by ${env.USER}"
-                    echo "Deploying in PROD"
-                    // Add your actual deployment steps for Prod here
-                }
+                echo "Deploying to production"
+                echo "Welcome ${USR_NAME}"
+                echo "Status of approval ${SRE_APPROVED}"
+                echo "This is a ${Release} Release"
+                echo "Approved by this person: ${whoapproved}"
             }
         }
     }

@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Deploy to Prod') {
             options {
-                timeout(time: 60, unit: 'SECONDS') // Corrected 'SECONDS' spelling
+                timeout(time: 60, unit: 'SECONDS')
             }
             steps {
                 script {
@@ -30,7 +30,7 @@ pipeline {
                     echo "Welcome ${userInput.USR_NAME}"
                     echo "Status of Approval is ${userInput.Approved_by_SRE}"
                     echo "This deployment is a ${userInput.CHOICES}"
-                    echo "This Deployment is done by ${userInput.Who Approved}"
+                    echo "This deployment is done by ${env.USER}"
                     echo "Deploying in PROD"
                     // Add your actual deployment steps for Prod here
                 }

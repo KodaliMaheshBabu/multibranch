@@ -17,7 +17,7 @@ pipeline {
                 submitterParameter: "Who Approved"
                 Parameter{
                     string{
-                        nmae: 'Change_Ticket',
+                        name: 'Change_Ticket',
                         defaultValue: 'CHG.....',
                         description: 'Please Change ticket notes'
                     }

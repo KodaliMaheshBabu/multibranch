@@ -22,8 +22,8 @@ pipeline {
                         description: 'Please Change ticket notes'
                     }
                     string{
-                        name: 'USR_NAME'
-                        defaultValue: 'jenkins'
+                        name: 'USR_NAME',
+                        defaultValue: 'jenkins',
                         description: 'Please Provide your details'
                     }
                     booleanParam(

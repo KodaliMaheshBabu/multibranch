@@ -57,4 +57,44 @@ pipeline {
             }
         }
     }
+            post{
+            success{
+                echo "Job is done"
+            }
+            always{
+                echo "Job is done please check if failed or passed"
+
+            }
+            changed{
+                echo "Job is changed"
+            }
+            fixed{
+                echo "Job is fixed"
+
+            }
+            regression{
+                echo "Job is regression"
+
+            }
+            aborted{
+                echo "Job is aborted"
+
+            }
+            failure{
+                echo "Job is failure"
+
+            }
+            unstable{
+                echo "Job is unstable"
+
+            }
+            unsuccessful{
+                echo "Job is unsuccessfull"
+
+            }
+            cleanup{
+                echo "Job is cleanUp"
+
+            }
+        }
 }
